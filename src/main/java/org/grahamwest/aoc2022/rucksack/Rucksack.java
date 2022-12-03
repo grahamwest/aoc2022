@@ -3,7 +3,7 @@ package org.grahamwest.aoc2022.rucksack;
 public class Rucksack {
 
     public static int priority(int codePoint) {
-        return priority(codePoint);
+        return priority((char) codePoint);
     }
 
     public static int priority(char c) {

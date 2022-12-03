@@ -10,7 +10,7 @@ public class InputTest {
 
     @Test
     public void testReadingLines() {
-        Stream<String> lines = Input.asStrings(0);
+        Stream<String> lines = Input.asStrings("test0.txt");
 
         List<String> list = lines.toList();
         Assert.assertEquals(2, list.size());
