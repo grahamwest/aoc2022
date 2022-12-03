@@ -3,7 +3,9 @@ package extensions.java.util.stream.IntStream;
 import manifold.ext.rt.api.Extension;
 import manifold.ext.rt.api.This;
 
+import java.util.Set;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -28,6 +30,10 @@ public class IntStreamExt {
 
     public static Stream<IntStream> split(@This IntStream thiz, Predicate<Integer> isSeparator) {
         return thiz.boxed().split(isSeparator).map(x -> x.mapToInt(Integer::intValue));
+    }
+
+    public static Set<Integer> toSet(@This IntStream thiz) {
+        return thiz.boxed().toSet();
     }
 
 }

@@ -16,12 +16,12 @@ public class Input {
         return Files.lines(getResource("dec" + day + ".txt"));
     }
 
-    public static Stream<OptionalInt> asInts(int day) {
+    public static Stream<OptionalInt> asIntsReplaceEmpty(int day) {
         return asStrings(day).map( s -> (s.length() == 0) ? OptionalInt.empty() : OptionalInt.of(Integer.valueOf(s).intValue()));
     }
 
-    public static IntStream asInts(int day, int emptyValue) {
-        return asInts(day).mapToInt( x -> x.orElse(emptyValue) );
+    public static IntStream asIntsReplaceEmpty(int day, int emptyValue) {
+        return asIntsReplaceEmpty(day).mapToInt(x -> x.orElse(emptyValue) );
     }
 
 }
