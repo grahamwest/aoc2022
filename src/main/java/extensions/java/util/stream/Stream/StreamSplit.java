@@ -2,11 +2,9 @@ package extensions.java.util.stream.Stream;
 
 import manifold.ext.rt.api.Extension;
 import manifold.ext.rt.api.This;
+import org.grahamwest.aoc2022.util.Sets;
 
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 

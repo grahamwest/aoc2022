@@ -3,6 +3,7 @@ package org.grahamwest.aoc2022;
 import org.grahamwest.aoc2022.rockpaperscissors.Game;
 import org.grahamwest.aoc2022.rucksack.Rucksack;
 import org.grahamwest.aoc2022.util.Input;
+import org.grahamwest.aoc2022.util.Range;
 import org.grahamwest.aoc2022.util.Sets;
 import org.junit.Assert;
 import org.junit.Test;
@@ -57,7 +58,13 @@ public class AdventOfCodeTest {
     public void dec3part1() {
 
         var sumPriorities = Input.asStrings("dec3.txt")
-                .map( code -> Sets.intersect(code.segment(2).map(s -> s.uniqueCodepoints())).first())
+                .map( contents ->
+                    Sets.intersect(
+                        contents.segment(2)
+                            .map(s -> s.uniqueCodepoints())
+                    )
+                    .first()
+                )
                 .mapToInt(Rucksack::priority)
                 .sum();
 
@@ -67,15 +74,43 @@ public class AdventOfCodeTest {
 
     @Test
     public void dec3part2() {
-
         var sumPriorities = Input.asStrings("dec3.txt")
                 .chunk(3)
-                .map( groupOfThree -> Sets.intersect(groupOfThree.map(s -> s.uniqueCodepoints())).first() )
-                .mapToInt(Rucksack::priority)
+                .map( groupOfThree ->
+                        Sets.intersect(
+                            groupOfThree.map(s -> s.uniqueCodepoints())
+                        )
+                        .first()
+                )
+                .mapToInt( Rucksack::priority )
                 .sum();
 
         Assert.assertEquals(2607, sumPriorities);
         System.out.println(sumPriorities);
+    }
+
+    @Test
+    public void dec4part1() {
+        var sum = Input.asStrings("dec4.txt")
+                .map(s -> s.split(","))
+                .map(s -> (first:Range.from(s[0]), second:Range.from(s[1])))
+                .filter(r -> r.first.contains(r.second) || r.second.contains(r.first))
+                .count();
+
+        Assert.assertEquals(524, sum);
+        System.out.println(sum);
+    }
+
+    @Test
+    public void dec4part2() {
+        var sum = Input.asStrings("dec4.txt")
+                .map(s -> s.split(","))
+                .map(s -> (first:Range.from(s[0]), second:Range.from(s[1])))
+                .filter(r -> r.first.overlaps(r.second))
+                .count();
+
+        Assert.assertEquals(798, sum);
+        System.out.println(sum);
     }
 
 }
