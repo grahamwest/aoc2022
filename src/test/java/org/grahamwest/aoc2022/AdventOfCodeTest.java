@@ -1,5 +1,7 @@
 package org.grahamwest.aoc2022;
 
+import org.grahamwest.aoc2022.containers.Containers;
+import org.grahamwest.aoc2022.containers.MoveCommand;
 import org.grahamwest.aoc2022.rockpaperscissors.Game;
 import org.grahamwest.aoc2022.rucksack.Rucksack;
 import org.grahamwest.aoc2022.util.Input;
@@ -8,6 +10,9 @@ import org.grahamwest.aoc2022.util.Sets;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.List;
+import java.util.Stack;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class AdventOfCodeTest {
@@ -111,6 +116,32 @@ public class AdventOfCodeTest {
 
         Assert.assertEquals(798, sum);
         System.out.println(sum);
+    }
+
+    @Test
+    public void dec5part1() {
+        var input = Input.asStrings("dec5.txt").split(String::isEmpty).toList();
+        List<Stack<String>> stacks = Containers.parseStacks(input[0]);
+
+        input[1].map(MoveCommand::from)
+                .forEach( cmd -> cmd.exec(stacks, 1) );
+
+        var message = stacks.stream().map(s -> s.isEmpty ? "" : s.peek()).collect(Collectors.joining());
+        Assert.assertEquals("FWNSHLDNZ", message);
+        System.out.println(message);
+    }
+
+    @Test
+    public void dec5part2() {
+        var input = Input.asStrings("dec5.txt").split(String::isEmpty).toList();
+        List<Stack<String>> stacks = Containers.parseStacks(input[0]);
+
+        input[1].map(MoveCommand::from)
+                .forEach( cmd -> cmd.exec(stacks, Integer.MAX_VALUE) );
+
+        var message = stacks.stream().map(s -> s.isEmpty ? "" : s.peek()).collect(Collectors.joining());
+        Assert.assertEquals("RNRGDNFQG", message);
+        System.out.println(message);
     }
 
 }
