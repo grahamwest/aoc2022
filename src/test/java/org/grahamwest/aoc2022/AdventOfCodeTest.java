@@ -144,4 +144,22 @@ public class AdventOfCodeTest {
         System.out.println(message);
     }
 
+    @Test
+    public void dec6part1() {
+        String str = Input.asStrings("dec6.txt").toList().first();
+        int marker = str.findSubstring(4, s -> s.uniqueCodepoints().size() == s.length()).end;
+
+        Assert.assertEquals(1909, marker);
+        System.out.println(marker);
+    }
+
+    @Test
+    public void dec6part2() {
+        String str = Input.asStrings("dec6.txt").toList().first();
+        int marker = str.findSubstring(14, s -> s.uniqueCodepoints().size() == s.length()).end;
+
+        Assert.assertEquals(3380, marker);
+        System.out.println(marker);
+    }
+
 }
