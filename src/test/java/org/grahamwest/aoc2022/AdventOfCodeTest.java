@@ -2,6 +2,7 @@ package org.grahamwest.aoc2022;
 
 import org.grahamwest.aoc2022.containers.Containers;
 import org.grahamwest.aoc2022.containers.MoveCommand;
+import org.grahamwest.aoc2022.filesystem.Directory;
 import org.grahamwest.aoc2022.rockpaperscissors.Game;
 import org.grahamwest.aoc2022.rucksack.Rucksack;
 import org.grahamwest.aoc2022.util.Input;
@@ -147,7 +148,7 @@ public class AdventOfCodeTest {
     @Test
     public void dec6part1() {
         String str = Input.asStrings("dec6.txt").toList().first();
-        int marker = str.findSubstring(4, s -> s.uniqueCodepoints().size() == s.length()).end;
+        int marker = str.findSubstring(4, s -> s.uniqueCodepoints().size() == s.length());
 
         Assert.assertEquals(1909, marker);
         System.out.println(marker);
@@ -156,10 +157,45 @@ public class AdventOfCodeTest {
     @Test
     public void dec6part2() {
         String str = Input.asStrings("dec6.txt").toList().first();
-        int marker = str.findSubstring(14, s -> s.uniqueCodepoints().size() == s.length()).end;
+        int marker = str.findSubstring(14, s -> s.uniqueCodepoints().size() == s.length());
 
         Assert.assertEquals(3380, marker);
         System.out.println(marker);
+    }
+
+    @Test
+    public void dec7part1() {
+        List<String> input = Input.asStrings("dec7.txt").toList();
+        Directory fs = Directory.fs();
+        fs.parse(input.iterator());
+
+        long size = fs.getDirectory("/")
+                .getDirectory( d -> d.filesize() <= 100000)
+                .mapToLong(Directory::filesize)
+                .sum();
+
+        Assert.assertEquals(1644735, size);
+        System.out.println(size);
+    }
+
+    @Test
+    public void dec7part2() {
+        List<String> input = Input.asStrings("dec7.txt").toList();
+        Directory fs = Directory.fs();
+        fs.parse(input.iterator());
+        Directory root = fs.getDirectory("/");
+
+        long available = 70000000 - root.filesize();
+        long target = 30000000 - available;
+
+        long size = root
+                .getDirectory( d -> d.filesize() >= target)
+                .mapToLong(Directory::filesize)
+                .min()
+                .getAsLong();
+
+        Assert.assertEquals(1300850, size);
+        System.out.println(size);
     }
 
 }
