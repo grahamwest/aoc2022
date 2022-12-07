@@ -51,13 +51,13 @@ public class Directory {
         }
     }
 
-    public Directory getDirectory(String name) {
+    public Directory getDirectories(String name) {
         return this.directories.get(name);
     }
 
-    public Stream<Directory> getDirectory(final Predicate<Directory> test) {
+    public Stream<Directory> getDirectories(final Predicate<Directory> test) {
         Stream<Directory> dirs = this.directories.values().stream().filter(test);
-        Stream<Directory> subDirs = this.directories.values().stream().flatMap( d->d.getDirectory(test));
+        Stream<Directory> subDirs = this.directories.values().stream().flatMap( d->d.getDirectories(test));
 
         return Stream.concat(dirs, subDirs);
     }

@@ -169,8 +169,8 @@ public class AdventOfCodeTest {
         Directory fs = Directory.fs();
         fs.parse(input.iterator());
 
-        long size = fs.getDirectory("/")
-                .getDirectory( d -> d.filesize() <= 100000)
+        long size = fs.getDirectories("/")
+                .getDirectories(d -> d.filesize() <= 100000)
                 .mapToLong(Directory::filesize)
                 .sum();
 
@@ -183,13 +183,13 @@ public class AdventOfCodeTest {
         List<String> input = Input.asStrings("dec7.txt").toList();
         Directory fs = Directory.fs();
         fs.parse(input.iterator());
-        Directory root = fs.getDirectory("/");
+        Directory root = fs.getDirectories("/");
 
         long available = 70000000 - root.filesize();
         long target = 30000000 - available;
 
         long size = root
-                .getDirectory( d -> d.filesize() >= target)
+                .getDirectories(d -> d.filesize() >= target)
                 .mapToLong(Directory::filesize)
                 .min()
                 .getAsLong();
